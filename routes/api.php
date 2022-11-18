@@ -34,7 +34,7 @@ Route::group([
     'prefix' => 'books',
     'middleware' => ['api.auth','throttle:ip-address','throttle:60,1']
 ], function () {
-	Route::get('/', 'BookController@index');
+	Route::get('/', 'BookController@index')->middleware('throttle:user-session');
 	Route::get('/{id}', 'BookController@show');
 	Route::post('', 'BookController@store');
 	Route::put('/{id}', 'BookController@update');

@@ -92,6 +92,14 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(10)->by($request->ip())->response(function() {
                 return response('To many request', 429);
             });
+
+        });
+
+        RateLimiter::for('user-session', function (Request $request) {
+            return Limit::perMinute(100)->by($request->email)->response(function() {
+                return response('To many request', 429);
+            });
+
         });
     }
 }
